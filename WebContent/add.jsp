@@ -17,7 +17,7 @@
   GuestbooksDao dao=new GuestbooksDao();
   dao.insert(vo);
   
-  response.sendRedirect("/guestbook2/gs");//이게 list인 경우는 프로젝트 1을 했을때의 사례
+  response.sendRedirect("/mysite/gb");//이게 list인 경우는 프로젝트 1을 했을때의 사례
  
   
   
