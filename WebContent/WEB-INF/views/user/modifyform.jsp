@@ -20,7 +20,7 @@
 			<div id="content">
 				<div id="user">
 	
-					<form id="join-form" name="joinForm" method="post" action="">
+					<form id="join-form" name="joinForm" method="get" action="/mysite/user">
 
 						
 						<label class="block-label" for="name">이름</label>
@@ -30,7 +30,7 @@
 						<strong><%=uservo.getEmail() %></strong>
 						
 						<label class="block-label">패스워드</label>
-						<input name="password" type="password" value="" />
+						<input name="password" type="password" value="<%=uservo.getPassword() %>" />
 						
 						<fieldset>
 							<legend>성별</legend>
@@ -49,6 +49,7 @@
 							    <%}
 							%>
 						</fieldset>
+						<input type="text" name="a" value="modify" />
 						
 						<input type="submit" value="수정완료">
 						

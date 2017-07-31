@@ -183,6 +183,83 @@ public class UserDao {
 		return vo;
 
 	}
+	
+	public int update(UserVo vo) {
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		try {
+			
+		//1. JDBC 드라이버 (Oracle) 로딩
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		//프로그램 로딩 가져옴
+		
+		
+		//2. Connection 얻어오기
+		String url="jdbc:oracle:thin:@localhost:1521:xe";//db주소
+		conn=DriverManager.getConnection(url,"webdb","webdb");//정보 다 가짐
+		System.out.println("접속성공");
+		
+		if(vo.getPassword()=="") {
+			String query="update users set name=?,gender=? where no=?";
+			
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getGender());
+			pstmt.setInt(3, vo.getNo());
+			
+			pstmt.executeUpdate();//commit
+			
+			
+		}else {
+	
+		
+		//3. SQL문 준비 / 바인딩 / 실행
+		String query="update users " + 
+				"set name=?, " + 
+				"    password=?, " + 
+				"    gender=? " + 
+				"where no=?";
+		
+		pstmt=conn.prepareStatement(query);
+		pstmt.setString(1, vo.getName());
+		pstmt.setString(2, vo.getPassword());
+		pstmt.setString(3, vo.getGender());
+		pstmt.setInt(4, vo.getNo());
+		
+		pstmt.executeUpdate();//commit
+		}
+		
+		
+		// 4.결과처리
+		
+	}catch(ClassNotFoundException e) {
+		System.out.println("error:드라이벌딩 실패."+e);
+	}catch(SQLException e) {
+		System.out.println("error:"+e);
+	}finally {
+		
+		
+		//5. 자원정리
+		try {
+			if(pstmt!=null) {
+				pstmt.close();
+			}
+			if(conn!=null) {
+				conn.close();
+			}
+			
+		
+			
+		}catch(SQLException e) {
+			System.out.println("error:"+e);
+		}
+		
+
+	}
+		return 1;
+		
+	}
 
 }// joinform에서 <input type="text name="a" values="join" /> 는 뒤에 붙는 주석을 숨기기 위한 값
 	// 42번라인

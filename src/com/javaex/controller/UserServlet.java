@@ -55,9 +55,41 @@ public class UserServlet extends HttpServlet {
 			response.sendRedirect("/mysite/main");
 			
 			
+		}else if("modify".equals(actionName)) {
+			
+			System.out.println("modify성공");
+			String name=request.getParameter("name");
+			String password=request.getParameter("password");
+			String gender=request.getParameter("gender");
+			UserVo vo=new UserVo();
+			
+			vo.setName(name);
+			vo.setPassword(password);
+			vo.setGender(gender);
+			
+			HttpSession session=request.getSession();//setAttribute로 되어잇는 상태
+			UserVo authorUser=(UserVo)session.getAttribute("authUser");//위에서 author이란 변수로 set을 해놓은 구간이 있음
+			//authorUser라는 변수를 창출, 바뀌;웠으므로 set해서 다시 밖으로 보여야 함
+			//session에 로그인한 사용자의 정보를 가져오기 위해 만듬
+			
+			
+			int no=authorUser.getNo();
+			vo.setNo(no);
+			
+			
+			
+			UserDao dao=new UserDao();
+			dao.update(vo);
+			//수정코드(몇번 데이터를 바꾸냐가 메인)
+			authorUser.setName(name);
+			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/main/index.jsp");
+			rd.forward(request, response);//보냄
+			
+			
+			
 		}else if("modifyform".equals(actionName)) {
 			
-			HttpSession session=request.getSession();
+			HttpSession session=request.getSession();//static과 비슷한 형세
 			UserVo authUser=(UserVo)session.getAttribute("authUser");
 			int no=authUser.getNo();
 			
@@ -68,6 +100,7 @@ public class UserServlet extends HttpServlet {
 
 
 			request.setAttribute("uservo", uservo);
+			
 			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/user/modifyform.jsp");
 			rd.forward(request, response);//보냄
 			

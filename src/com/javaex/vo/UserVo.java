@@ -78,4 +78,11 @@ public class UserVo {
 		this.gender = gender;
 	}
 
+	@Override
+	public String toString() {
+		return "UserVo [no=" + no + ", email=" + email + ", password=" + password + ", name=" + name + ", gender="
+				+ gender + "]";
+	}
+	
+
 }
