@@ -12,7 +12,7 @@
       GuestbooksDao dao=new GuestbooksDao();
       dao.delete(vo);
       
-      response.sendRedirect("/guestbook2/gs");
+      response.sendRedirect("/mysite/gb");
 
 
 %>
