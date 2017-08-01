@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-    String result=request.getParameter("result");//result라고 내보네겠다고 설정
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -32,12 +30,13 @@
 						<label class="block-label">패스워드</label> 
 						<input name="password" type="password" value="">
 						
-						<% if("fail".equals(result)){		%>
-								<P>로그인이 실패했습니다. 다시입력해주세요</P>
-						<% 
-						}
-						%>
-	
+						
+						
+						<c:if test="${param.result!=request.uservo}">
+						    <P>로그인이 실패했습니다. 다시입력해주세요</P>
+						</c:if>
+						  
+						
 						<input type="submit" value="로그인">
 					</form>
 					

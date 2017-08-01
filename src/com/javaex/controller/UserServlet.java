@@ -45,6 +45,7 @@ public class UserServlet extends HttpServlet {
 			
 		}else if("loginform".equals(actionName)) {
 			//로그인 폼
+			String result=request.getParameter("result");//result라고 내보네겠다고 설정
 			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/user/loginform.jsp");
 			rd.forward(request, response);
 			
