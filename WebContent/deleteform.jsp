@@ -14,7 +14,7 @@
                  <td >비밀번호</td>
                  <td ><input type="password" name="ps" value=""></td>
                  <td colspan=4 align=right><input type="submit" value="확인. "></td>
-                 <td><a href="list.jsp">메인으로 돌아가기</a></td>
+                 <td><a href="/mysite/gb">메인으로 돌아가기</a></td>
            </tr>
       </table>
       </form>

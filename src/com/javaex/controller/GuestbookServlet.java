@@ -20,7 +20,13 @@ public class GuestbookServlet extends HttpServlet {
        
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String actionName=request.getParameter("a");
+		if("deleteform".equals(actionName)) {
+			RequestDispatcher rd=request.getRequestDispatcher("deleteform.jsp");
+			rd.forward(request, response);
+			
+			System.out.println("deleteform출력");
+		}else {	
 		
 			System.out.println("기본값 리스트");
 			GuestbooksDao dao=new GuestbooksDao();
@@ -30,6 +36,7 @@ public class GuestbookServlet extends HttpServlet {
 			
 			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/main/list.jsp");
 			rd.forward(request, response);
+			}
 				
 	}
 

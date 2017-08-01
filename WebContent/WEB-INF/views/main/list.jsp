@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.javaex.vo.GuestbooksVo" %>
-<%@ page import="java.util.List" %>
-<%
-   
-    List<GuestbooksVo> list=(List<GuestbooksVo>)request.getAttribute("list");
-    %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,27 +40,22 @@
 	</table>
 	</form>
 	<br/>
-	<%
-	         for(GuestbooksVo vo :list){
-	%>
-
+	
+<c:forEach items="${list}" var="vo" varStatus="status">
 	<table width=510 border=1>
 		<tr>
-			<td>[<%=vo.getNo() %>]</td>
-			<td><%=vo.getName() %>></td>
-			<td><%=vo.getReg_date() %></td>
+			<td>"${vo.no}"</td>
+			<td>"${vo.name}"</td>
+			<td>"${vo.reg_date}"</td>
 			<td><a href="deleteform.jsp">삭제</a></td>
 		</tr>
 		<tr>
-			<td colspan=4><%=vo.getContent() %></td>
+			<td colspan=4>"${vo.content}"</td>
 		</tr>
 	</table>
+	</c:forEach>
         <br/>
         
-        <%
-	         }
-        %>
-	
         <br/>
 				</div>
 			</div>
