@@ -12,9 +12,9 @@
     <form action="add.jsp" method="post">
 	<div id="container">
 		
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		
-		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/navigation.jsp"></c:import>
 		
 		
 
@@ -61,7 +61,7 @@
 			</div>
 		</div>
 		
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 		
 	</div>
 </body>
