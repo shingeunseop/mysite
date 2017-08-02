@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.javaex.dao.GuestbooksDao;
+import com.javaex.util.WebUtil;
 import com.javaex.vo.GuestbooksVo;
 
 
@@ -34,8 +35,9 @@ public class GuestbookServlet extends HttpServlet {
 			
 			request.setAttribute("list", list);
 			
-			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/main/list.jsp");
-			rd.forward(request, response);
+			WebUtil.forward(request, response, "/WEB-INF/views/main/list.jsp");
+			/*RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/main/list.jsp");
+			rd.forward(request, response);*/
 			}
 				
 	}

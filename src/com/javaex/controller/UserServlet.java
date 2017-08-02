@@ -131,7 +131,9 @@ public class UserServlet extends HttpServlet {
 				System.out.println("성공");
 				//이제부터 세션을 유지하는 법
 				HttpSession session=request.getSession(true);//session이라는 자신만의 메모리 (내 전용 공간)
+				//request를 통해서 session으로 가는길. true는 옵션
 				session.setAttribute("authUser", vo);//로그인을 햇을때 set으로 올려놔야된다. 로그아웃시에는 세션삭제 authUser라는 변수로 vo의 형태의 값을 set한다.
+				//들어 가 있는건 session
 				
 				WebUtil.redirect(request, response,"/mysite/main" );
 				//response.sendRedirect("/mysite/main");
