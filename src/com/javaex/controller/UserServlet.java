@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.UserDao;
+import com.javaex.util.WebUtil;
 import com.javaex.vo.UserVo;
 
 
@@ -26,8 +27,10 @@ public class UserServlet extends HttpServlet {
 		String actionName=request.getParameter("a");//주소창에 a=에 있는 것을 가져온다.
 		
 		if("joinform".equals(actionName)) {
-			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/user/joinform.jsp");//내부에서 찾아내기 때문에 mysite는 불필요 특히 web-inf는 접근제한이므로
-		    rd.forward(request, response);
+			
+			WebUtil.forward(request, response, "/WEB-INF/views/user/joinform.jsp");
+			//RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/user/joinform.jsp");//내부에서 찾아내기 때문에 mysite는 불필요 특히 web-inf는 접근제한이므로
+		   // rd.forward(request, response);
 			
 		}else if("join".equals(actionName)){//join에 들어갈 정보를 모아둔다
 			String name=request.getParameter("name");
@@ -39,21 +42,26 @@ public class UserServlet extends HttpServlet {
 			UserDao dao=new UserDao();
 			dao.insert(vo);
 			
-			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/user/joinsuccess.jsp");
-			rd.forward(request, response);
+			WebUtil.forward(request, response,"/WEB-INF/views/user/joinsuccess.jsp");
+			/*RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/user/joinsuccess.jsp");
+			rd.forward(request, response);*/
 			
 			
 		}else if("loginform".equals(actionName)) {
 			//로그인 폼
 			String result=request.getParameter("result");//result라고 내보네겠다고 설정
-			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/user/loginform.jsp");
-			rd.forward(request, response);
+			
+			WebUtil.forward(request, response,"/WEB-INF/views/user/loginform.jsp");
+			/*RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/user/loginform.jsp");
+			rd.forward(request, response);*/
 			
 		}else if("logout".equals(actionName)){
 			HttpSession session=request.getSession();
 			session.removeAttribute("authUser");
 			session.invalidate();
-			response.sendRedirect("/mysite/main");
+			WebUtil.redirect(request, response,"/mysite/main" );
+			//response.sendRedirect("/mysite/main");
+			
 			
 			
 		}else if("modify".equals(actionName)) {
@@ -83,8 +91,10 @@ public class UserServlet extends HttpServlet {
 			dao.update(vo);
 			//수정코드(몇번 데이터를 바꾸냐가 메인)
 			authorUser.setName(name);
-			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/main/index.jsp");
-			rd.forward(request, response);//보냄
+			
+			WebUtil.forward(request, response,"/WEB-INF/views/main/index.jsp");
+			/*RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/main/index.jsp");
+			rd.forward(request, response);//보냄*/
 			
 			
 			
@@ -102,8 +112,9 @@ public class UserServlet extends HttpServlet {
 
 			request.setAttribute("uservo", uservo);
 			
-			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/user/modifyform.jsp");
-			rd.forward(request, response);//보냄
+			WebUtil.forward(request, response,"/WEB-INF/views/user/modifyform.jsp");
+			/*RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/user/modifyform.jsp");
+			rd.forward(request, response);//보냄*/
 			
 									
 		}else if("login".equals(actionName)) {
@@ -114,14 +125,16 @@ public class UserServlet extends HttpServlet {
 			
 			if(vo==null) {
 				System.out.println("실패");
-				response.sendRedirect("/mysite/user?a=loginform&result=fail");
+				WebUtil.redirect(request, response,"/mysite/user?a=loginform&result=fail" );
+				//response.sendRedirect("/mysite/user?a=loginform&result=fail");
 			}else {
 				System.out.println("성공");
 				//이제부터 세션을 유지하는 법
 				HttpSession session=request.getSession(true);//session이라는 자신만의 메모리 (내 전용 공간)
 				session.setAttribute("authUser", vo);//로그인을 햇을때 set으로 올려놔야된다. 로그아웃시에는 세션삭제 authUser라는 변수로 vo의 형태의 값을 set한다.
 				
-				response.sendRedirect("/mysite/main");
+				WebUtil.redirect(request, response,"/mysite/main" );
+				//response.sendRedirect("/mysite/main");
 				return;
 			}
 			
@@ -129,7 +142,8 @@ public class UserServlet extends HttpServlet {
 			
 			
 		}else {
-			response.sendRedirect("/mysite/main");//다시 요청하는것, main으로 가라고 사용자가 다시 찾아가는 것이므로 mysite가 필요
+			WebUtil.redirect(request, response,"/mysite/main" );
+			//response.sendRedirect("/mysite/main");//다시 요청하는것, main으로 가라고 사용자가 다시 찾아가는 것이므로 mysite가 필요
 		}
 	}
 
